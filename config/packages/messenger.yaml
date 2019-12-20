@@ -8,8 +8,12 @@ framework:
       async:
         dsn: '%env(RABBITMQ_DSN)%'
         serializer: messenger.transport.symfony_serializer
-      failed: 'doctrine://default?queue_name=failed'
-      sync: 'sync://'
+        options:
+          queue_name: async
+          exchange:
+            name: async
+          queues:
+            async: ~
 
     routing:
       # Route your messages to the transports
